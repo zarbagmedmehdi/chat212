@@ -1,0 +1,32 @@
+
+
+<ion-content color="dark" >
+  <div  class="accueil" ></div>
+  <div align="center">   <ion-img  [ngStyle]="{'margin-bottom':iconMargin2 ,'margin-top':iconMargin1  }"  id="icon" src="/assets/icon/icon3.png"   ></ion-img>
+    <ion-button  (click)='onClickFuntion($event)'  class="ion-float-right" shape="round" color="primary" class="ion-text-center">Connexion</ion-button>
+
+    <ion-button class="ion-float-right"   routerLink="/inscription" shape="round" color="primary" class="ion-text-center">Inscription</ion-button>
+
+  </div>
+
+
+<form  (ngSubmit)="log()"  [formGroup]="logForm"  [hidden]=isHidden  >
+
+            <div   align="center" color ="dark" class="connexion" >
+              <h4 class="ion-text-center">Connexion :</h4>
+
+                    <ion-item  color="light" class="rounded">
+                        <ion-label fixed>email :</ion-label>
+                        <ion-input [(ngModel)]="email" formControlName="email" required   type="email" value=""></ion-input>
+                    </ion-item>
+                    <ion-item  color="light" class="rounded">
+                        <ion-label fixed>password :</ion-label>
+                        <ion-input  [(ngModel)]="password" formControlName="password" required  type="password" value=""></ion-input>
+                    </ion-item>
+                    <ion-button    [disabled]="!logForm.valid" type="submit"    color="primary" class="ion-text-center"> start </ion-button>
+
+
+            </div>
+</form>
+
+  </ion-content>

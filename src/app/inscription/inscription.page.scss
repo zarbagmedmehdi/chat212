@@ -1,0 +1,32 @@
+ion-button{
+
+}
+ion-content{
+  --ion-background-color: #222428;
+
+}
+ion-header{
+  --ion-background-color: #d7d8da;
+
+}
+
+ion-input {
+  font-size: 16px;
+  display: block;
+}
+
+.rounded {
+  margin-left: 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  margin-top:10px;
+  width: 90%;
+  height: 40px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 5px;
+}
+ion-label{
+  margin-right: 10px;
+  width :80px;
+}
