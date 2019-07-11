@@ -1,13 +1,20 @@
 ion-button{
+  display: block;
+  justify-content: center;
+  align-items: center;}
+ion-fab-button, .cc{
+  margin-left: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;}
 
-}
 ion-content{
   --ion-background-color: #222428;
 
 }
 ion-header{
-  --ion-background-color: #d7d8da;
-
+  --ion-background-color: #222428;
+    --ion-color-light: #fffbfc;
 }
 
 ion-input {

@@ -3,8 +3,9 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'inscription', loadChildren: './inscription/inscription.module#InscriptionPageModule' },
+  { path: 'tab', loadChildren: './view/tabs/tab/tab.module#TabPageModule' },
+  { path: 'home', loadChildren: './view/home/home.module#HomePageModule' },
+  { path: 'inscription', loadChildren: './view/inscription/inscription.module#InscriptionPageModule' },
 
 ];
 

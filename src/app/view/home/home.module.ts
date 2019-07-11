@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { HttpClientModule, /* other http imports */ } from "@angular/common/http";
+import {Network} from '@ionic-native/network';
 import { HomePage } from './home.page';
-import {NetworkService} from '../helper/network.service';
+
 @NgModule({
   imports: [
 
+    HttpClientModule,
     CommonModule,
     FormsModule,
     IonicModule,
@@ -20,7 +22,6 @@ import {NetworkService} from '../helper/network.service';
     ]),
     ReactiveFormsModule
   ],
-  providers: [NetworkService],
   declarations: [HomePage]
 })
 export class HomePageModule {}

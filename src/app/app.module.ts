@@ -14,8 +14,11 @@ import {environment} from '../environments/environment';
 import { AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HttpClientModule } from '@angular/common/http';
+import {Network} from '@ionic-native/network/ngx';
+import {InscriptionService} from './service/user/logSign/inscription.service'
+import {ConnexionService} from './service/user/logSign/connexion.service'
+import {Users} from './model/User';
 
-import {NetworkService} from './helper/network.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -25,11 +28,13 @@ import {NetworkService} from './helper/network.service';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule ,BrowserModule, IonicModule.forRoot(), AppRoutingModule,
   AngularFireModule.initializeApp(environment.firebase),AngularFirestoreModule],
-  providers: [
-    NetworkService,
+  providers: [Network,
+      Users,
+    InscriptionService,
+    ConnexionService,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy , useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
