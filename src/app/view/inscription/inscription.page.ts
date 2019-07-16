@@ -1,13 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {InscriptionService} from '../../service/user/logSign/inscription.service';
 import {Users} from '../../model/User';
 import {AngularFirestore} from '@angular/fire/firestore';
 import * as moment from 'moment';
-import {ConnexionService} from '../../service/user/logSign/connexion.service';
 import { Plugins, CameraResultType } from '@capacitor/core';
 import {Router} from '@angular/router';
+import {LogSignService} from '../../service/user/logSign/logSign.service';
 const { Camera } = Plugins;
 @Component({
   changeDetection:ChangeDetectionStrategy.OnPush,
@@ -21,19 +20,19 @@ export class InscriptionPage implements  OnInit {
 today:any;
 mDate:any;
 signForm: FormGroup;
+base64:any;
 public userPicture: string = null;
 
 
   constructor(public router:Router,
-              private cnxService :ConnexionService,
+              private logSignService :LogSignService,
               public formBuilder: FormBuilder,
               public user:Users,
-              private is :InscriptionService,
               private formbuilder: FormBuilder,
               private afAuth: AngularFireAuth,
               private afStore: AngularFirestore)
   {
-    this.signForm=formBuilder.group(this.cnxService.patterns2);
+    this.signForm=formBuilder.group(this.logSignService.patterns2);
 
   }
 
@@ -44,9 +43,7 @@ public userPicture: string = null;
         allowEditing: false,
         resultType: CameraResultType.Base64,
       });
-      this.userPicture =profilePicture.base64String;
-
-      this.user.userPicture=this.userPicture;
+      this.base64 =profilePicture.base64String;
       console.log(this.userPicture);
     } catch (error) {
       console.error(error);
@@ -66,20 +63,20 @@ public userPicture: string = null;
     } else {
       try {
         const res = await this.afAuth.auth.createUserWithEmailAndPassword(this.user.email, this.user.password);
-        this.user.createUser(this.user,res.user.uid);
+        this.user.createUser(this.user,res.user.uid,this.base64);
 
-        this.is.sendVerificationEmail(this.afAuth, this.user.email);
-        this.cnxService.alertConnexion("Vous etes correctement enregistré veuillez activer vote compte en utilisant votre mail");
+        this.logSignService.sendVerificationEmail(this.afAuth, this.user.email);
+        this.logSignService.alertConnexion("Vous etes correctement enregistré veuillez activer vote compte en utilisant votre mail");
         this.router.navigate(['/home']);
       }
 
          catch (err) {
-           this.cnxService.alertConnexion(err.message);
+           this.logSignService.alertConnexion(err.message);
         if (err == "auth/invalid-email") {
-          this.cnxService.alertConnexion("Email invalide pour créer un compte ")
+          this.logSignService.alertConnexion("Email invalide pour créer un compte ")
         }
         else  if (err == "auth/weak-password") {
-          this.cnxService.alertConnexion("le mot de passe n'est pas assez fort ")
+          this.logSignService.alertConnexion("le mot de passe n'est pas assez fort ")
         }
 
 

@@ -15,9 +15,10 @@ import { AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HttpClientModule } from '@angular/common/http';
 import {Network} from '@ionic-native/network/ngx';
-import {InscriptionService} from './service/user/logSign/inscription.service'
-import {ConnexionService} from './service/user/logSign/connexion.service'
+
 import {Users} from './model/User';
+import {SearchService} from './service/user/search/search.service';
+import {LogSignService} from './service/user/logSign/logSign.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,8 +31,9 @@ import {Users} from './model/User';
   AngularFireModule.initializeApp(environment.firebase),AngularFirestoreModule],
   providers: [Network,
       Users,
-    InscriptionService,
-    ConnexionService,
+      SearchService,
+    LogSignService,
+
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy , useClass: IonicRouteStrategy }

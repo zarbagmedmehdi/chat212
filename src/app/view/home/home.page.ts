@@ -5,9 +5,9 @@ import {Observable} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Router} from '@angular/router';
 import {NetworkStatus, PluginListenerHandle, Plugins} from '@capacitor/core';
-import {ConnexionService} from '../../service/user/logSign/connexion.service';
 import {Users} from '../../model/User';
 import {User} from 'firebase';
+import {LogSignService} from '../../service/user/logSign/logSign.service';
 
 const { Network } = Plugins;
 
@@ -28,10 +28,11 @@ export class HomePage implements OnInit {
     networkStatus: NetworkStatus;
     networkListener: PluginListenerHandle;
 
-    constructor(  private cnxService :ConnexionService, public db: AngularFirestore,
+    constructor(  private logSignService:LogSignService, public db: AngularFirestore,
                  public cUser:Users,  public router:Router,      public afAuth :AngularFireAuth ,public formBuilder: FormBuilder) {
-        this.logForm=formBuilder.group(this.cnxService.patterns);
-
+        this.logForm=formBuilder.group(this.logSignService.patterns);
+        this.email= "";
+        this.password ="";
     }
         onClickFuntion($event:MouseEvent)
         {console.log("onClickFunction");
@@ -42,8 +43,10 @@ export class HomePage implements OnInit {
         }
 
     async ngOnInit() {
+        this.email= "";
+        this.password ="";
         this.networkListener = Network.addListener('networkStatusChange', (status) => {
-            this.cnxService.testconnection(status,this.internetConnection,this.isHidden);
+            this.logSignService.testconnection(status,this.internetConnection,this.isHidden);
         });
         this.networkStatus = await Network.getStatus();
 
@@ -54,17 +57,16 @@ export class HomePage implements OnInit {
                     if (res.user) {
                         if(res.user.emailVerified==true)    {
                             await  this.cUser.getUserById(res.user.uid);
-                            this.cnxService.alertConnexion("Bienvenue");
                             this.router.navigate(['/tab']);
+                            this.logSignService.presentToast('      Bienvenue    ' );
                         }
-                        else  this.cnxService.alertConnexion("you should verify your email first");
+                        else  this.logSignService.alertConnexion("you should verify your email first");
                         this.router.navigate(['/tab/profile'],{queryParams:{user:this.afAuth.auth.currentUser.uid}});
-                   //     this.navCtrl.push(resource.page, {item: item});
 
                     }
                 } catch (err) {
                     console.log(err);
-                    this.cnxService.alertConnexion(err.message);
+                    this.logSignService.alertConnexion(err.message);
                 }
             }
 

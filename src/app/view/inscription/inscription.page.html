@@ -47,17 +47,17 @@
                 <ion-select name="pays"  required [(ngModel)]="user.pays" formControlName="pays" multiple="false" cancelText="annuler" okText="ok">
                     <ion-select-option value="Maroc">Maroc</ion-select-option>
                     <ion-select-option value="France">France</ion-select-option>
-                    <ion-select-option value="algérie">algérie</ion-select-option>
+                    <ion-select-option value="Algérie">Algérie</ion-select-option>
                     <ion-select-option value="Espagne">Espagne</ion-select-option>
                 </ion-select>
                 </ion-item>
                 <ion-item color="light" class="rounded">
                     <ion-label>situation familiale</ion-label>
                     <ion-select name="situationFamilliale"  formControlName="situationFamilliale" required [(ngModel)]="user.situationFamilliale" multiple="false" cancelText="annuler" okText="ok">
-                        <ion-select-option value="1">celibataire</ion-select-option>
-                        <ion-select-option value="2">marié</ion-select-option>
-                        <ion-select-option value="3">veuf</ion-select-option>
-                        <ion-select-option value="4">divorcé</ion-select-option>
+                        <ion-select-option value="celibataire">celibataire</ion-select-option>
+                        <ion-select-option value="marié">marié</ion-select-option>
+                        <ion-select-option value="veuf">veuf</ion-select-option>
+                        <ion-select-option value="divorcé">divorcé</ion-select-option>
                     </ion-select>
                 </ion-item>
 

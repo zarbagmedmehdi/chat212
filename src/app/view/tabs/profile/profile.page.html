@@ -1,0 +1,51 @@
+<ion-header  color="light" class="header">
+  <ion-toolbar color ="dark">
+    <ion-title >profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-content>
+
+      <div class="list card">
+        <ion-item class="profile-item">
+          <div class="profile-picture big-profile-picture">
+            <ion-img  src="{{user.userPicture}}"></ion-img>
+          </div>
+          <h5 class="profile-name dark"><ion-label  >{{user.nom}}  </ion-label><ion-label   >{{user.prenom}}   </ion-label></h5>
+        </ion-item>
+
+        <h5>Vos informations :</h5>
+        <ion-item class="profile-item2">
+            <ion-label fixed>telephone </ion-label> :
+            <ion-input [disabled]="bol" name="telephone"      type="text"   [(ngModel)]="user.telephone"></ion-input>
+          <ion-button (click)="telephoneEvent($event)"  color="light" >
+            <ion-icon name="build"></ion-icon>
+          </ion-button>          </ion-item>
+
+        <ion-item class="profile-item2">
+          <ion-label fixed>situation Familiale </ion-label> :
+          <ion-input [disabled]="bol" name="situationFamilliale"      type="text"   [(ngModel)]="user.situationFamilliale"></ion-input>
+          <ion-button (click)="situationEvent($event)"  color="light" >
+            <ion-icon name="build"></ion-icon>
+          </ion-button>          </ion-item>
+        <ion-item class="profile-item2">
+          <ion-label fixed>pays </ion-label> :
+          <ion-input [disabled]="bol" name="pays"      type="text"   [(ngModel)]="user.pays"></ion-input>
+          <ion-button (click)="paysEvent($event)"  color="light" >
+            <ion-icon name="build"></ion-icon>
+          </ion-button>          </ion-item>
+
+        <ion-item class="profile-item2">
+          <ion-button   (click)="takePicture($event)"    color="primary" class="ion-text-center">changer de photo </ion-button>
+          <ion-button   (click)="changePassword($event)"    color="primary" class="ion-text-center">changer de passe </ion-button>
+
+        </ion-item>
+        <ion-item class="profile-item2">
+
+          <ion-button   (click)="SignOut($event)"    color="primary" class="ion-text-center">se déconnecter </ion-button>
+        </ion-item>
+      </div>
+
+
+</ion-content>
