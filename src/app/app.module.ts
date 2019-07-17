@@ -19,6 +19,7 @@ import {Network} from '@ionic-native/network/ngx';
 import {Users} from './model/User';
 import {SearchService} from './service/user/search/search.service';
 import {LogSignService} from './service/user/logSign/logSign.service';
+import {CallNumber} from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,10 +31,10 @@ import {LogSignService} from './service/user/logSign/logSign.service';
     AngularFireStorageModule ,BrowserModule, IonicModule.forRoot(), AppRoutingModule,
   AngularFireModule.initializeApp(environment.firebase),AngularFirestoreModule],
   providers: [Network,
-      Users,
-      SearchService,
+   // CallNumber,
+    Users,
+    SearchService,
     LogSignService,
-
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy , useClass: IonicRouteStrategy }

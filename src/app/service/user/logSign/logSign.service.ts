@@ -9,6 +9,11 @@ import {AngularFireAuth} from '@angular/fire/auth';
   providedIn: 'root'
 })
 export class LogSignService {
+    public  jobs=  ["Software Developer","Network Engineer",
+        "Network Administrator","Computer Scientist","Systems Analyst","Business Analyst"
+        ,"Tech Support","IT Consultant","Software Tester","Cloud Architect"
+        ,"Customer Support Administrator",
+        "Database Administrator"];
 
     namePattern = "^[a-zA-Z ]{4,25}$";
     pwdPattern = "^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{6,12}$";
@@ -40,7 +45,7 @@ export class LogSignService {
           cpassword: ['', Validators.compose([Validators.required, Validators.pattern(this.pwdPattern2)])],
           telephone: ['', Validators.compose([Validators.required, Validators.pattern(this.mobnumPattern)])],
           pays: ['', Validators.compose([Validators.required])],
-          situationFamilliale: ['', Validators.compose([Validators.required])],
+          job: ['', Validators.compose([Validators.required])],
           dateNaissance: [],
 
       };

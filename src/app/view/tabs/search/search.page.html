@@ -29,7 +29,7 @@
 
         <ion-list  color ="dark">
           <ion-item-sliding #sliding *ngFor="let obj of users">
-            <ion-item >
+            <ion-item (click)="goToProfile(obj)" >
               <ion-avatar item-start>
                 <img [src]="obj.userPicture">
               </ion-avatar>

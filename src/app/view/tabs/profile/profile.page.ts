@@ -19,8 +19,8 @@ userPicture:string="";
   telephoneEvent($event){
       this.user.setTelephone();
     }
-    situationEvent($event){
-        this.user.setSituation();
+    jobEvent($event){
+        this.user.setJob();
     }
     paysEvent($event){
    // console.log("dskjlfj"+this.user.userPicture);

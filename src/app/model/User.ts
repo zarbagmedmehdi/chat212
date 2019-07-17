@@ -1,16 +1,11 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, QueryDocumentSnapshot} from '@angular/fire/firestore';
-import {User} from 'firebase';
+import {AngularFirestore} from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
-import {CnxNetworkService} from '../helper/cnx-network.service';
 import {AlertController, ToastController} from '@ionic/angular';
-import {showRuleCrashWarning} from 'tslint/lib/error';
-import {stringify} from 'querystring';
 import {LogSignService} from '../service/user/logSign/logSign.service';
-
 @Injectable()
 export class Users {
     public id: string ;
@@ -19,7 +14,7 @@ export class Users {
     public email: string ;
     public password: string ;
     public dateNaissance: Date ;
-    public situationFamilliale ;
+    public job:string ;
     public telephone: string ;
     public pays: string ;
     public userPicture: string;
@@ -27,14 +22,14 @@ export class Users {
     constructor( public logSingService?:LogSignService,
     public toastController?:ToastController,
     public alert?: AlertController,
-    public db?: AngularFirestore,) {
+    public db?: AngularFirestore) {
         this.nom = "";
         this.prenom = "";
         this.email ="";
         this.id ="";
         this.password =null ;
         this.dateNaissance = null;
-        this.situationFamilliale = "";
+        this.job = "";
         this.pays = "";
         this.telephone ="";
         this.userPicture = "";
@@ -51,7 +46,7 @@ export class Users {
             id: id,
             password: user.password,
             dateNaissance: user.dateNaissance,
-            situationFamilliale: user.situationFamilliale,
+            job: user.job,
             pays: user.pays,
             telephone: user.telephone,
             userPicture: "https://firebasestorage.googleapis.com/v0/b/chat212-35009.appspot.com/o/userPhotos%2F" + id + "%2FprofilePicture.png?alt=media",
@@ -77,11 +72,9 @@ export class Users {
                   }}
 
     public getUserById(id: string) {
+
         this.db.collection('users').doc(id).valueChanges().subscribe(cc => {
             this.cloneUser(cc);});
-
-
-
     }
 
     cloneUser(data: any) {
@@ -91,19 +84,19 @@ export class Users {
         this.id = data.id;
         this.password = data.password;
         this.dateNaissance = data.dateNaissance;
-        this.situationFamilliale = data.situationFamilliale;
+        this.job = data.job;
         this.pays = data.pays;
         this.telephone = data.telephone;
         this.userPicture = data.userPicture;
     }
     cloneUser2(data: any) {
         this.nom = data.get("nom");
-        this.prenom = data.get("prenom");;
-        this.email = data.get("email");;
+        this.prenom = data.get("prenom");
+        this.email = data.get("email");
         this.id = data.get("id");
         this.password = null;
         this.dateNaissance = data.get("dateNaissance");
-        this.situationFamilliale = data.get("situationFamilliale");
+        this.job = data.get("job");
         this.pays = data.get("pays");
         this.telephone =data.get("telephone");
         this.userPicture = data.get("userPicture");
@@ -116,7 +109,7 @@ export class Users {
         this.id ="";
         this.password = null;
         this.dateNaissance = null;
-        this.situationFamilliale = "";
+        this.job = "";
         this.pays = "";
         this.telephone ="";
         this.userPicture ="";
@@ -132,10 +125,10 @@ export class Users {
     public getDateNaissance() {return this.dateNaissance;}
     public getTelephone() {return this.telephone;}
     public getPays() {return this.pays;}
-    public getSituationFamilliale() {return this.situationFamilliale;}
+    public getJob() {return this.job;}
     public toString() {
         console.log("ccccccccccccc"+this.nom + " " +
-            this.prenom + " " + this.email + " " + this.id + " " + this.password + " " + this.dateNaissance + " " + this.situationFamilliale + " " + this.pays + " " + this.userPicture + " " + this.telephone);
+            this.prenom + " " + this.email + " " + this.id + " " + this.password + " " + this.dateNaissance + " " + this.job + " " + this.pays + " " + this.userPicture + " " + this.telephone);
     }
 
 
@@ -166,27 +159,32 @@ export class Users {
         await alert.present();
 
     }
-    public async setSituation() {
+    public async setJob() {
+        let  options: Array<any>=[] ;
 
+        for(let i=0; i< this.logSingService.jobs.length; i++) {
+            options.push({ name : 'job', value:this.logSingService.jobs[i], label: this.logSingService.jobs[i], type: 'radio' });
+        }
         const alert = await this.alert.create({
-            header: 'situation familiale',
-            inputs: [
-                {name: 'situationFamilliale', type: 'radio', label: 'celibataire', value: 'celibataire'},
-                {name: 'situationFamilliale', type: 'radio', label: 'marié', value: 'marié'},
-                {name: 'situationFamilliale', type: 'radio', label: 'veuf', value: 'veuf'},
-                {name: 'situationFamilliale', type: 'radio', label: 'divorcé', value: 'divorcé'},
-            ],
+
+            header: 'Job',
             buttons: [
                 {text: 'Cancel', role: 'cancel', cssClass: 'secondary',
                     handler: () => {console.log('Confirm Cancel');}
                 }, {text: 'Ok',  handler: datas => {
                         try {console.log(JSON.stringify(datas));
                               this.db.doc('users/' + this.id).update({
-                                    situationFamilliale: datas,}),
-                                    this.situationFamilliale=datas;
+                                    job: datas,}),
+                                    this.job=datas;
                                 setTimeout(() => {}, 300);
                                 this.logSingService.presentToast('tes modifications sont enregistrées');
-                        } catch (err) {this.showAlert("", err.message);}},}]})
+                        } catch (err) {this.showAlert("", err.message);}},}],
+            inputs: options,
+        })
+
+
+        // Now we add the radio buttons
+
         await alert.present();
     }
     public async setPassword() {
@@ -207,7 +205,6 @@ export class Users {
                             {this.logSingService.updatePassword(datas.nvPassword);
                                 this.db.doc('users/' + this.id).update({
                                     password: datas.nvPassword,}),
-                                    this.situationFamilliale=datas;
                                 setTimeout(() => {}, 300);
                                 this.logSingService.presentToast('tes modifications sont enregistrées');
                             }
@@ -241,7 +238,6 @@ export class Users {
                         } catch (err) {this.showAlert("", err.message);}},}]})
         await alert.present();
     }
-
 
 
 }

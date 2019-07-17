@@ -1,0 +1,47 @@
+.profile-item {
+  text-align: center;
+  color: white;
+  --ion-background-color: #222428;
+}
+.profile-item2{
+  text-align: center;
+  color:  #222428;
+  --ion-background-color: white;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+
+}
+say{
+  height:50px;
+  display: block;
+  align-content: center;
+  align-items: center;
+}
+
+
+.profile-picture {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 3px;
+  border-radius: 100%;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  margin: 0 auto;
+  width: 150px;
+  height: 128px;
+  overflow: hidden;
+
+}
+
+.profile-picture img {
+  width: 128px;
+  border-radius: 100%;
+}
+
+.profile-name {
+  padding-top: 20px;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  text-transform: capitalize;
+}

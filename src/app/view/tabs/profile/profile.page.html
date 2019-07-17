@@ -5,7 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-content>
 
       <div class="list card">
         <ion-item class="profile-item">
@@ -24,9 +23,9 @@
           </ion-button>          </ion-item>
 
         <ion-item class="profile-item2">
-          <ion-label fixed>situation Familiale </ion-label> :
-          <ion-input [disabled]="bol" name="situationFamilliale"      type="text"   [(ngModel)]="user.situationFamilliale"></ion-input>
-          <ion-button (click)="situationEvent($event)"  color="light" >
+          <ion-label fixed>Job </ion-label> :
+          <ion-input [disabled]="bol" name="job"      type="text"   [(ngModel)]="user.job"></ion-input>
+          <ion-button (click)="jobEvent($event)"  color="light" >
             <ion-icon name="build"></ion-icon>
           </ion-button>          </ion-item>
         <ion-item class="profile-item2">

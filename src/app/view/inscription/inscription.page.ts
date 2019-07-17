@@ -22,6 +22,7 @@ mDate:any;
 signForm: FormGroup;
 base64:any;
 public userPicture: string = null;
+    jobs: any;
 
 
   constructor(public router:Router,
@@ -30,8 +31,9 @@ public userPicture: string = null;
               public user:Users,
               private formbuilder: FormBuilder,
               private afAuth: AngularFireAuth,
-              private afStore: AngularFirestore)
-  {
+              private afStore: AngularFirestore
+  )
+  { this.jobs=this.logSignService.jobs;
     this.signForm=formBuilder.group(this.logSignService.patterns2);
 
   }

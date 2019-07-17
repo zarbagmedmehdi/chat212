@@ -1,4 +1,3 @@
-
 <ion-header color="light">
 
     <ion-toolbar>
@@ -10,79 +9,89 @@
 
 </ion-header>
 
-<ion-content  >
+<ion-content>
 
 
-        <form  [formGroup]="signForm" (ngSubmit)="register()" >
+    <form [formGroup]="signForm" (ngSubmit)="register()">
 
-            <div   color ="dark"  >
+        <div color="dark">
 
-                <ion-item  color="light" class="rounded">
-                    <ion-label fixed>nom </ion-label>:
-                    <ion-input required name="nom" formControlName="nom" [(ngModel)]="user.nom"   type="text" value=""></ion-input>
-                </ion-item>
-                <ion-item  required color="light" class="rounded">
-                    <ion-label floating>prenom </ion-label>:
-                    <ion-input required  name="prenom"  formControlName="prenom" [(ngModel)]="user.prenom" placeholder="" type="text" value=""></ion-input>
-                </ion-item>
-                <ion-item  color="light" class="rounded">
-                    <ion-label floating>email </ion-label>:
-                    <ion-input required name="email"  formControlName="email" [(ngModel)]="user.email" type="email" value=""></ion-input>
-                </ion-item>
+            <ion-item color="light" class="rounded">
+                <ion-label fixed>nom</ion-label>
+                :
+                <ion-input required name="nom" formControlName="nom" [(ngModel)]="user.nom" type="text"
+                           value=""></ion-input>
+            </ion-item>
+            <ion-item required color="light" class="rounded">
+                <ion-label floating>prenom</ion-label>
+                :
+                <ion-input required name="prenom" formControlName="prenom" [(ngModel)]="user.prenom" placeholder=""
+                           type="text" value=""></ion-input>
+            </ion-item>
+            <ion-item color="light" class="rounded">
+                <ion-label floating>email</ion-label>
+                :
+                <ion-input required name="email" formControlName="email" [(ngModel)]="user.email" type="email"
+                           value=""></ion-input>
+            </ion-item>
 
-                <ion-item  color="light" class="rounded">
-                    <ion-label floating>password </ion-label>:
-                    <ion-input required [(ngModel)]="user.password"   formControlName="password" name="password"  type="password" value=""></ion-input>
-                </ion-item>
-                <ion-item  color="light" class="rounded">
-                    <ion-label floating>password </ion-label>:
-                    <ion-input required  [(ngModel)]="cpassword"   formControlName="cpassword" name="cpassword"  type="password" placeholder="taper à nouveau" value=""></ion-input>
-                </ion-item >
-                <ion-item  color="light" class="rounded">
-                    <ion-label fixed>telephone </ion-label>:
-                    <ion-input required name="telephone"   formControlName="telephone" [(ngModel)]="user.telephone"   type="text" placeholder="Exemple:+212671926510"></ion-input>
-                </ion-item>
-                <ion-item color="light" class="rounded">
+            <ion-item color="light" class="rounded">
+                <ion-label floating>password</ion-label>
+                :
+                <ion-input required [(ngModel)]="user.password" formControlName="password" name="password"
+                           type="password" value=""></ion-input>
+            </ion-item>
+            <ion-item color="light" class="rounded">
+                <ion-label floating>password</ion-label>
+                :
+                <ion-input required [(ngModel)]="cpassword" formControlName="cpassword" name="cpassword" type="password"
+                           placeholder="taper à nouveau" value=""></ion-input>
+            </ion-item>
+            <ion-item color="light" class="rounded">
+                <ion-label fixed>telephone</ion-label>
+                :
+                <ion-input required name="telephone" formControlName="telephone" [(ngModel)]="user.telephone"
+                           type="text" placeholder="Exemple:+212671926510"></ion-input>
+            </ion-item>
+            <ion-item color="light" class="rounded">
                 <ion-label>Pays</ion-label>
-                <ion-select name="pays"  required [(ngModel)]="user.pays" formControlName="pays" multiple="false" cancelText="annuler" okText="ok">
+                <ion-select name="pays" required [(ngModel)]="user.pays" formControlName="pays" multiple="false"
+                            cancelText="annuler" okText="ok">
                     <ion-select-option value="Maroc">Maroc</ion-select-option>
                     <ion-select-option value="France">France</ion-select-option>
                     <ion-select-option value="Algérie">Algérie</ion-select-option>
                     <ion-select-option value="Espagne">Espagne</ion-select-option>
                 </ion-select>
-                </ion-item>
-                <ion-item color="light" class="rounded">
-                    <ion-label>situation familiale</ion-label>
-                    <ion-select name="situationFamilliale"  formControlName="situationFamilliale" required [(ngModel)]="user.situationFamilliale" multiple="false" cancelText="annuler" okText="ok">
-                        <ion-select-option value="celibataire">celibataire</ion-select-option>
-                        <ion-select-option value="marié">marié</ion-select-option>
-                        <ion-select-option value="veuf">veuf</ion-select-option>
-                        <ion-select-option value="divorcé">divorcé</ion-select-option>
-                    </ion-select>
-                </ion-item>
+            </ion-item>
+            <ion-item color="light" class="rounded">
+                <ion-label>Job</ion-label>
+                <ion-select name="job" formControlName="job" required
+                            [(ngModel)]="user.job" multiple="false" cancelText="annuler" okText="ok">
+                    <ion-select-option *ngFor="let job of jobs" value="{{job}}">{{job}}</ion-select-option>
+
+                </ion-select>
+            </ion-item>
 
 
-                <ion-item   color="light" class="rounded">
-                    <ion-label>Date de naissance</ion-label>
-                    <ion-datetime required max="{{mDate}}"  formControlName="dateNaissance" name="dateNaissance"  [(ngModel)]="user.dateNaissance" displayFormat="MM DD YYYY" placeholder=""></ion-datetime>
-                </ion-item>
+            <ion-item color="light" class="rounded">
+                <ion-label>Date de naissance</ion-label>
+                <ion-datetime required max="{{mDate}}" formControlName="dateNaissance" name="dateNaissance"
+                              [(ngModel)]="user.dateNaissance" displayFormat="MM DD YYYY" placeholder=""></ion-datetime>
+            </ion-item>
 
 
-                    <ion-fab-button   (click)="takePicture()">
-                        <ion-icon name="camera"></ion-icon>
+            <ion-fab-button (click)="takePicture()">
+                <ion-icon name="camera"></ion-icon>
 
-                    </ion-fab-button>
-
-
+            </ion-fab-button>
 
 
-                <ion-button   [disabled]="!signForm.valid" type="submit"    color="primary" class="ion-text-center">S'inscrire </ion-button>
+            <ion-button [disabled]="!signForm.valid" type="submit" color="primary" class="ion-text-center">S'inscrire
+            </ion-button>
 
 
-            </div>
-        </form>
-
-
+        </div>
+    </form>
 
 
 </ion-content>
