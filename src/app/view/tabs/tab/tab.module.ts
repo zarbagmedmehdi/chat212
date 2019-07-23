@@ -8,7 +8,6 @@ import { IonicModule } from '@ionic/angular';
 import { TabPage } from './tab.page';
 
 import{TabPageRoutingModule} from './tab-routing.module';
-import {ProfilePage} from '../profile/profile.page';
 import {ProfilePageModule} from '../profile/profile.module';
 import {SearchPageModule} from '../search/search.module';
 

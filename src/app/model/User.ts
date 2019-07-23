@@ -38,6 +38,7 @@ export class Users {
 
     public createUser(user: Users, id,base64) {
         user.toString();
+
         var downloadUrl = this.uploadUerPicture(id,base64);
         this.db.doc('users/' + id).set({
             nom: user.nom,

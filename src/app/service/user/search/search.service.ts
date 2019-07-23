@@ -29,6 +29,7 @@ export class SearchService {
          let user :Users=new Users();
         user.cloneUser2(item.payload.doc)
         users.push(user);
+        console.log("id dyal searrch"+user.id);
       })
     })
      return users;

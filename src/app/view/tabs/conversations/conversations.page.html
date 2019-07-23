@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>conversations</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list  color ="dark">
+    <ion-item-sliding #sliding *ngFor="let obj of conversationsItems">
+      <ion-item  >
+        <ion-avatar item-start>
+          <img src="{{obj.interlocuteur2.userPicture}}">
+        </ion-avatar>
+        <h5>{{ obj.interlocuteur2.nom }}  {{ obj.interlocuteur2.prenom }}<span ion-text color="primary"></span> <br></h5>
+
+        <h5>{{ obj.lastMessage.contenu }} <span ion-text color="primary"></span></h5>
+      </ion-item>
+
+    </ion-item-sliding>
+  </ion-list>
+  <ion-button (click)="bb()">bb</ion-button>
+  <ion-button (click)="cc()">cc</ion-button>
+
+</ion-content>

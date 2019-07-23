@@ -1,7 +1,7 @@
 <ion-header  color="light" class="header">
   <ion-toolbar color ="dark">
     <ion-buttons slot="start">
-      <ion-back-button  defaultHref="search"></ion-back-button>
+      <ion-back-button  defaultHref="/search"></ion-back-button>
     </ion-buttons>
     <ion-title >profile</ion-title>
   </ion-toolbar>
@@ -12,13 +12,12 @@
     <div class="list card">
       <ion-item class="profile-item">
         <div class="profile-picture big-profile-picture">
-          <ion-img  src="{{cUser.userPicture}}"></ion-img>
-
+          <ion-img  src="{{profileUser.userPicture}}"></ion-img>
         </div>
-        <h5 class="profile-name dark"><ion-label  >{{cUser.nom}}  </ion-label><ion-label   >{{cUser.prenom}}   </ion-label></h5>
+        <h5 class="profile-name dark"><ion-label  >{{profileUser.nom}}  </ion-label><ion-label   >{{profileUser.prenom}}   </ion-label></h5>
       </ion-item>
 <div class="say">
-  <ion-button      color="primary" >
+  <ion-button  (click)="goToConversation()"    color="primary" >
           <ion-icon name="chatbubbles"></ion-icon>
         </ion-button>
       <ion-button  color="light">
@@ -32,23 +31,23 @@
       <h5>Ses informations :</h5>
       <ion-item class="profile-item2">
         <ion-label >telephone </ion-label> :
-        <ion-input  name="telephone"      type="text"   [(ngModel)]="cUser.telephone"></ion-input>
+        <ion-input  name="telephone"      type="text"   [(ngModel)]="profileUser.telephone"></ion-input>
                 </ion-item>
       <ion-item class="profile-item2">
         <ion-label >Email </ion-label> :
-        <ion-input  name="email"      type="text"   [(ngModel)]="cUser.email"></ion-input>
+        <ion-input  name="email"      type="text"   [(ngModel)]="profileUser.email"></ion-input>
                  </ion-item>
       <ion-item class="profile-item2">
         <ion-label >Date Naissance </ion-label> :
-        <ion-input  name="dateNaissance"      type="text"   [(ngModel)]="cUser.dateNaissance"></ion-input>
+        <ion-input  name="dateNaissance"      type="text"   [(ngModel)]="profileUser.dateNaissance"></ion-input>
       </ion-item>
       <ion-item class="profile-item2">
         <ion-label >Job </ion-label> :
-        <ion-input  name="job"      type="text"   [(ngModel)]="cUser.job"></ion-input>
+        <ion-input  name="job"      type="text"   [(ngModel)]="profileUser.job"></ion-input>
       </ion-item>
       <ion-item class="profile-item2">
         <ion-label >pays </ion-label> :
-        <ion-input  name="pays"      type="text"   [(ngModel)]="cUser.pays"></ion-input>
+        <ion-input  name="pays"      type="text"   [(ngModel)]="profileUser.pays"></ion-input>
       </ion-item>
 
 

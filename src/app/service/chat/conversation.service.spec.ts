@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CnxNetworkService } from './cnx-network.service';
+import { ConversationService } from './conversation.service';
 
-describe('CnxNetworkService', () => {
+describe('ConversationService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CnxNetworkService = TestBed.get(CnxNetworkService);
+    const service: ConversationService = TestBed.get(ConversationService);
     expect(service).toBeTruthy();
   });
 });

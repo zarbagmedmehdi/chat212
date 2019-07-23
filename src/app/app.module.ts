@@ -20,6 +20,9 @@ import {Users} from './model/User';
 import {SearchService} from './service/user/search/search.service';
 import {LogSignService} from './service/user/logSign/logSign.service';
 import {CallNumber} from '@ionic-native/call-number';
+import {Conversations} from './model/Conversation';
+import {ConversationService} from './service/chat/conversation.service';
+import {Messages} from './model/Message';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +35,10 @@ import {CallNumber} from '@ionic-native/call-number';
   AngularFireModule.initializeApp(environment.firebase),AngularFirestoreModule],
   providers: [Network,
    // CallNumber,
+      Messages,
     Users,
+      Conversations,
+      ConversationService,
     SearchService,
     LogSignService,
     StatusBar,

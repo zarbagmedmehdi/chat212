@@ -30,6 +30,17 @@ const routes: Routes = [
                             }
                         ]
                 },
+                {
+                    path: 'conversations',
+
+                    children:
+                        [
+                            {
+                                path: '',
+                                loadChildren: '../conversations/conversations.module#ConversationsPageModule'
+                            }
+                        ]
+                },
 
 
 

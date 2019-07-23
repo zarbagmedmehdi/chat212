@@ -94,7 +94,6 @@ export class SearchPage implements OnInit {
     }
 
     goToProfile(user: Users) {
-        console.log("hahwa 9bel mankhchiwh"+user.id);
         this.router.navigate(['his-profile', user.id]);
     }
 
