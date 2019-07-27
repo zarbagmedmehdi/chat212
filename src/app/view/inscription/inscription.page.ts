@@ -46,9 +46,9 @@ public userPicture: string = null;
         resultType: CameraResultType.Base64,
       });
       this.base64 =profilePicture.base64String;
-      console.log(this.userPicture);
+      //console.log(this.userPicture);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
     }}
   ngOnInit() {
     this.today = moment().format("YYYY-MM-DD");

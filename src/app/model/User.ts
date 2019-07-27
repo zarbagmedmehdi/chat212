@@ -128,8 +128,8 @@ export class Users {
     public getPays() {return this.pays;}
     public getJob() {return this.job;}
     public toString() {
-        console.log("ccccccccccccc"+this.nom + " " +
-            this.prenom + " " + this.email + " " + this.id + " " + this.password + " " + this.dateNaissance + " " + this.job + " " + this.pays + " " + this.userPicture + " " + this.telephone);
+        //console.log("ccccccccccccc"+this.nom + " " +
+         //   this.prenom + " " + this.email + " " + this.id + " " + this.password + " " + this.dateNaissance + " " + this.job + " " + this.pays + " " + this.userPicture + " " + this.telephone);
     }
 
 
@@ -171,9 +171,12 @@ export class Users {
             header: 'Job',
             buttons: [
                 {text: 'Cancel', role: 'cancel', cssClass: 'secondary',
-                    handler: () => {console.log('Confirm Cancel');}
+                    handler: () => {
+                    //console.log('Confirm Cancel');
+                }
                 }, {text: 'Ok',  handler: datas => {
-                        try {console.log(JSON.stringify(datas));
+                        try {
+                            //console.log(JSON.stringify(datas));
                               this.db.doc('users/' + this.id).update({
                                     job: datas,}),
                                     this.job=datas;
@@ -199,7 +202,9 @@ export class Users {
             ],
             buttons: [
                 {text: 'Cancel', role: 'cancel', cssClass: 'secondary',
-                    handler: () => {console.log('Confirm Cancel');}
+                    handler: () => {
+                    //console.log('Confirm Cancel');
+                }
                 }, {text: 'Ok',  handler: datas => {
                         try {
                             if(this.logSingService.passwordVerification(this.password,datas.password,datas.nvPassword,datas.nvPassword2))
@@ -226,9 +231,12 @@ export class Users {
             ],
             buttons: [
                 {text: 'Cancel', role: 'cancel', cssClass: 'secondary',
-                    handler: () => {console.log('Confirm Cancel');}
+                    handler: () => {
+                    //console.log('Confirm Cancel');
+                }
                 }, {text: 'Ok',  handler: datas => {
-                        try {console.log(JSON.stringify(datas));
+                        try {
+                            //console.log(JSON.stringify(datas));
                           this.db.doc('users/' + this.id).update({
                                 pays: datas,}),
                                 this.pays=datas;

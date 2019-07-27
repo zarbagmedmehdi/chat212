@@ -1,24 +1,31 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>conversations</ion-title>
+<ion-header  color="light" class="header">
+  <ion-toolbar color ="dark">
+    <ion-title >Conversations</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list  color ="dark">
-    <ion-item-sliding #sliding *ngFor="let obj of conversationsItems">
-      <ion-item  >
+  <ion-list class="chat_list"  color ="dark">
+    <ion-item-sliding  #sliding *ngFor="let obj of conversationsItems">
+      <ion-item  (click)="goToConversation(obj.conversation.id)" class="chat_ib" >
         <ion-avatar item-start>
           <img src="{{obj.interlocuteur2.userPicture}}">
         </ion-avatar>
-        <h5>{{ obj.interlocuteur2.nom }}  {{ obj.interlocuteur2.prenom }}<span ion-text color="primary"></span> <br></h5>
 
-        <h5>{{ obj.lastMessage.contenu }} <span ion-text color="primary"></span></h5>
+        <ion-label text-wrap>
+          <ion-text >
+            <h3>{{ obj.interlocuteur2.prenom }}   {{ obj.interlocuteur2.nom }} </h3>
+          </ion-text>
+          <p>{{ obj.lastMessage.emeteur }}{{ obj.lastMessage.contenu }}</p>
+          <ion-text >
+            <p>{{ obj.lastMessage.dateEnvoi.toString().slice(0,21) }}
+              </p>
+          </ion-text>
+        </ion-label>
       </ion-item>
 
     </ion-item-sliding>
   </ion-list>
-  <ion-button (click)="bb()">bb</ion-button>
-  <ion-button (click)="cc()">cc</ion-button>
+
 
 </ion-content>

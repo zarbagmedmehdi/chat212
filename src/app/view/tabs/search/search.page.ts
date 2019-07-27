@@ -29,15 +29,15 @@ export class SearchPage implements OnInit {
 
     onSelect() {
         if (this.select.value == 1) {
-            console.log(1);
+            //console.log(1);
             this.textSearch('nom', 1);
         }
         if (this.select.value == 2) {
-            console.log(2);
+            //console.log(2);
             this.textSearch('prenom', 2);
         }
         if (this.select.value == 3) {
-            console.log(3);
+            //console.log(3);
             this.paysSearch();
         }
         this.select.value = null;
@@ -62,7 +62,7 @@ export class SearchPage implements OnInit {
                         //this.users = new Array<Users>();
 
                        this.users = this.searchService.getUsers('pays', this.pays);
-                       console.log(this.users);
+                       //console.log(this.users);
                     }
                 }]
         });

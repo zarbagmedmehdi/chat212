@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'inscription', loadChildren: './view/inscription/inscription.module#InscriptionPageModule' },
   { path: 'his-profile/:id', loadChildren: './view/his-profile/his-profile.module#HisProfilePageModule' },
   { path: 'conversations', loadChildren: './view/tabs/conversations/conversations.module#ConversationsPageModule' },
-  { path: 'conversation', loadChildren: './view/conversation/conversation.module#ConversationPageModule' },
+  { path: 'conversation/:id', loadChildren: './view/conversation/conversation.module#ConversationPageModule' },
 
 ];
 

@@ -35,7 +35,8 @@ export class HomePage implements OnInit {
         this.password ="";
     }
         onClickFuntion($event:MouseEvent)
-        {console.log("onClickFunction");
+        {
+            //console.log("onClickFunction");
          this.isHidden == true ? this.isHidden = false : this.isHidden = true;
             this.isHidden == true ? this.iconMargin1 = "90px" : this.iconMargin1 = "0px";
             this.isHidden == true ? this.iconMargin2 = "0px" : this.iconMargin2 = "90px";
@@ -65,7 +66,7 @@ export class HomePage implements OnInit {
 
                     }
                 } catch (err) {
-                    console.log(err);
+                    //console.log(err);
                     this.logSignService.alertConnexion(err.message);
                 }
             }

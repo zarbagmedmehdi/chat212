@@ -21,12 +21,12 @@ export class Conversations {
         this.bloquedBy="";
     }
     public toString(){
-    console.log(    this.id+" "+
-        this.interlocuteur1+" "+
-        this.interlocuteur2+" "+
-        this.datePremierMessage+" "+
-        this. bloqued+" "+
-        this.bloquedBy+" ");
+    // console.log(    this.id+" "+
+    //     this.interlocuteur1+" "+
+    //     this.interlocuteur2+" "+
+    //     this.datePremierMessage+" "+
+    //     this. bloqued+" "+
+    //     this.bloquedBy+" ");
     }
 
 }

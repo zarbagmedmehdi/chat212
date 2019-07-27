@@ -3,6 +3,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Injectable()
 export class Messages {
@@ -20,39 +21,24 @@ export class Messages {
     }
 
 
-    public  createMessage() {
-        let bd=this.db;
- let m:Messages=this;
-let id="";
-        try {
-            this.db.collection('messages').add({
-                contenu: m.contenu,
-                dateEnvoi: m.dateEnvoi,
-                conversation: m.conversation,
-                typeContenu: false,
-                emeteur: m.emeteur,
-            }).then(function(docRef) {
-                console.log("Document written with ID: ", docRef.id);
-                 id =docRef.id;
-                this.bd.doc('messages/'+docRef.id).update({
-                    id: docRef.id,
-                })
-            })
 
-            return id;
-        } catch (err) {
-            console.log(err);
-        }
-    }
     cloneMessage(data:any) {
-        this. contenu=data.get("contenu");
-        this. dateEnvoi=data.get("dateEnvoi");
-        this.typeContenu=data.get("typeContenu");
-        this. emeteur=data.get("emetteur");;
-        this. conversation=data.get("contenu");;
+        this.contenu = data.get("contenu");
+        this.dateEnvoi = new Date(data.get("dateEnvoi").seconds * 1000);
+        this.typeContenu = data.get("typeContenu");
+        this.emeteur = data.get("emeteur");;
+        this.conversation = data.get("conversation");
+    }
+    cloneMessage2(data:any) {
+        this. contenu=data.contenu;
+        this.dateEnvoi =new Date(data.dateEnvoi.seconds*1000);
+        this.typeContenu=data.typeContenu;
+        this. emeteur=data.emeteur;
+        this. conversation=data.conversation;
     }
 
-    delay(ms: number) {
-        return new Promise( resolve => setTimeout(resolve, ms) );
-    }
+
+
+
+
 }

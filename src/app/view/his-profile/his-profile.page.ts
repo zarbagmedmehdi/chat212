@@ -10,6 +10,7 @@ import {AngularFirestore, } from '@angular/fire/firestore';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
+import {ProfilePage} from '../tabs/profile/profile.page';
 @Component({
   selector: 'app-his-profile',
   templateUrl: './his-profile.page.html',
@@ -19,8 +20,8 @@ export class HisProfilePage implements OnInit {
   private getRoute: any;
     private conversations:Conversations[]=[];
     private idProfile:string="";
-    private idConversation:String="";
-  constructor(   public  conversation:Conversations,
+    private idConversation:string="";
+  constructor( private router:Router,  public  conversation:Conversations,
   private conversationService:ConversationService, private afAuth :AngularFireAuth, private profileUser :Users,private  route :ActivatedRoute) {
   }
 
@@ -33,27 +34,28 @@ export class HisProfilePage implements OnInit {
     });
       this.conversation=new Conversations();
 
-console.log("ngOnInit");
+//console.log("ngOnInit his profile :",this.afAuth.auth.currentUser.uid);
 
   }
    async  goToConversation(){
-      console.log("goToConversation");
-
+      //console.log("goToConversation");
        this.conversation=this.conversationService.getConversation(this.afAuth.auth.currentUser.uid,this.idProfile);
+       await  this.delay(1000);
+       //console.log(" hahya "+this.conversation);
 
-       await  this.delay(1500);
-if(this.conversation.interlocuteur1==""){
-    console.log("mal9inach");
+       if(this.conversation.id==""){
+    //console.log("mal9inach");
 this.conversation.interlocuteur1=this.afAuth.auth.currentUser.uid;
 this.conversation.interlocuteur2=this.idProfile;
     this.idConversation=this.conversationService.createConversation(this.conversation);
-console.log(this.idConversation);
-}
-else {
-    console.log("l9inah");
-    this.conversationService.toString(this.conversation);
+this.conversation.id=this.idConversation;
+   // this.router.navigate(['conversation',this.idConversation]);
 
 }
+else {
+    //console.log("l9inah");
+}
+       this.router.navigate(['conversation',this.conversation.id]);
 
    }
 

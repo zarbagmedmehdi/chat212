@@ -78,7 +78,7 @@ await alert.present();
     isHidden == true ? isHidden = false : isHidden = true;
     isHidden == true ? iconMargin1 = "90px" : iconMargin1 = "0px";
     isHidden == true ? iconMargin2 = "0px" : iconMargin2 = "90px";
-    console.log("cas 2");
+    //console.log("cas 2");
 
   }
   testconnection(status,internetConnection,isHidden){
@@ -87,17 +87,17 @@ await alert.present();
     status.connected==false  ?  internetConnection=false : internetConnection=true
     status.connected==false  ?  isHidden=true : isHidden=false
 
-    console.log("on init");
-    console.log("internetConnection"+internetConnection);
-    console.log("this hiddden"+isHidden);
-    console.log ("status dyal fonction"+status.connected);
+    //console.log("on init");
+    //console.log("internetConnection"+internetConnection);
+    //console.log("this hiddden"+isHidden);
+    //console.log ("status dyal fonction"+status.connected);
   }
     updatePassword(newPassword){
         var cUser = firebase.auth().currentUser;
         cUser.updatePassword(newPassword).then(function() {
 return 1;
         }).catch(function(error) {
-            console.log(error.message);
+            //console.log(error.message);
             return error.message;
         });
     }
@@ -109,15 +109,15 @@ return 1;
 }
 
     sendVerificationEmail ( afAuth: AngularFireAuth ,email:string ){
-        console.log("sendverificationEmail");
+        //console.log("sendverificationEmail");
         afAuth.auth.currentUser.sendEmailVerification()
         // afAuth.auth.sendSignInLinkToEmail(email,actionCodeSettings)
             .then(function() {
-                console.log("un email a été envoyé");
+                //console.log("un email a été envoyé");
                 window.localStorage.setItem('emailForSignIn', email);
             })
             .catch(function(error) {
-                console.log(error);
+                //console.log(error);
             });
     }
     validatePhone(data):boolean {

@@ -11,11 +11,11 @@ import {AlertController, IonImg} from '@ionic/angular';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage  {
 bol :boolean;
 userPicture:string="";
   constructor( public router:Router,
-      public user :Users, public afAuth :AngularFireAuth ,public alert :AlertController ) {}
+      private  user :Users, public afAuth :AngularFireAuth ,public alert :AlertController ) {}
   telephoneEvent($event){
       this.user.setTelephone();
     }
@@ -45,20 +45,20 @@ userPicture:string="";
       this.user.deletePicture();
        this.user.uploadUerPicture(this.user.id,profilePicture.base64String);
           this.user.getUserById(this.afAuth.auth.currentUser.uid);
-          console.log(cc);
+          //console.log(cc);
           this.user.userPicture  ="";
         }
     } catch (error) {
         console.error(error);
       }
       finally {
-        console.log("done");
+        //console.log("done");
 
       }
     }
 
  async SignOut($event) {
-    console.log("cc");
+    //console.log("cc");
     const alert = await this.alert.create({
       message: 'Vous voulez se <strong>deconnectez</strong>',
       buttons: [{text: 'non', role: 'cancel', cssClass: 'secondary',},
@@ -78,7 +78,9 @@ userPicture:string="";
   }
 
 
-  ngOnInit() {
+    ionViewWillEnter() {
+      //console.log("ngOnInit :"+this.afAuth.auth.currentUser.uid);
+
     this.user.getUserById(this.afAuth.auth.currentUser.uid);
     this.user.toString();
     this.bol=true;
