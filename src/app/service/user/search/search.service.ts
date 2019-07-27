@@ -27,8 +27,14 @@ export class SearchService {
    cc.subscribe(actionArray => {
      var list = actionArray.map(item => {
          let user :Users=new Users();
-        user.cloneUser2(item.payload.doc)
-        users.push(user);
+        user.cloneUser2(item.payload.doc);
+         let find = users.find((search) => {
+             return (search.id) ==user.id;
+
+         });
+         if (!find) {
+             users.push(user);
+         }
         //console.log("id dyal searrch"+user.id);
       })
     })

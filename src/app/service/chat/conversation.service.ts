@@ -16,7 +16,7 @@ import {error} from 'selenium-webdriver';
 export class ConversationService {
     public found: boolean;
     public conversationMessages = this.db.collection('/messages');
-
+public conversations:Conversations[]=[];
     constructor(public c: Conversations, public logSingService: LogSignService,
                 public toastController: ToastController,
                 public alert: AlertController,
@@ -53,7 +53,7 @@ export class ConversationService {
         return cis;
     }
 
-    public createConversation(c: Conversations) {
+    public createConversation(c: Conversations,callback) {
         let bd = this.db;
         let id = '';
         try {
@@ -67,10 +67,10 @@ export class ConversationService {
                 bd.doc('conversations/' + docRef.id).update({
                     id: docRef.id,
                 });
+                callback (id);
 
             });
 
-            return id;
         } catch (err) {
             //console.log(err);
         }
@@ -117,31 +117,26 @@ export class ConversationService {
     }
 
 
-    async getConversationByInter(id1, id2) {
+     getConversationByInter(id1, id2) {
 
-        this.db.collection('/conversations', ref => ref.where('interlocuteur1', '==', id1).where('interlocuteur2', '==', id2)).snapshotChanges().subscribe(actionArray => {
+        this.db.collection('/conversations', ref => ref.
+        where('interlocuteur1', '==', id1).where('interlocuteur2', '==', id2))
+            .snapshotChanges().subscribe(actionArray => {
             actionArray.map(item => {
-                if (item.payload.doc.exists) {
-                    //console.log('l9inaah');
-
+if(item.payload.doc.exists)
                     this.cloneConversation2(item.payload.doc, this.c);
-                } else {
-                    //console.log('non existe');
 
-                }
             });
         });
-        await this.delay(350);
 
     }
 
-    getConversation(id1, id2) {
-        //console.log(id1);
-        //console.log(id2);
-        this.c = new Conversations();
+    getConversation(id1, id2 ,callback) {
+
+           this.c = new Conversations();
         this.getConversationByInter(id1, id2);
         this.getConversationByInter(id2, id1);
-        return this.c;
+        callback (this.c);
 
     }
 
@@ -217,7 +212,6 @@ export class ConversationService {
                 messages.sort((a: Messages, b: Messages) => {
                     return this.getTime(a.dateEnvoi) - this.getTime(b.dateEnvoi);
                 });
-                console.log(messages);
                 callback(messages);
             });
     }

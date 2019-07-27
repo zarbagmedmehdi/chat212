@@ -83,8 +83,7 @@ export class ConversationPage {
                 });
 
                 if (!find) {
-                    console.log(find.contenu);
-                 this.messages.push(message);
+            //     this.messages.push(message);
                  this.doScrollToBottom();
 
                  }

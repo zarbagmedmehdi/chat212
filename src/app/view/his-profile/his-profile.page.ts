@@ -11,12 +11,13 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 import {ProfilePage} from '../tabs/profile/profile.page';
+import {Messages} from '../../model/Message';
 @Component({
   selector: 'app-his-profile',
   templateUrl: './his-profile.page.html',
   styleUrls: ['./his-profile.page.scss'],
 })
-export class HisProfilePage implements OnInit {
+export class HisProfilePage  {
   private getRoute: any;
     private conversations:Conversations[]=[];
     private idProfile:string="";
@@ -25,7 +26,7 @@ export class HisProfilePage implements OnInit {
   private conversationService:ConversationService, private afAuth :AngularFireAuth, private profileUser :Users,private  route :ActivatedRoute) {
   }
 
-  async ngOnInit() {
+    ionViewWillEnter() {
     this.getRoute = this.route.params.subscribe(params => {
       this.profileUser.getUserById(params['id']);
       this.idProfile=params['id'];
@@ -33,31 +34,50 @@ export class HisProfilePage implements OnInit {
 
     });
       this.conversation=new Conversations();
+        this.conversationService.getConversation(this.afAuth.auth.currentUser.uid,this.idProfile,
+            (conversation: Conversations) => {
+            this.conversation=conversation;
+            });
 
 //console.log("ngOnInit his profile :",this.afAuth.auth.currentUser.uid);
 
   }
-   async  goToConversation(){
-      //console.log("goToConversation");
-       this.conversation=this.conversationService.getConversation(this.afAuth.auth.currentUser.uid,this.idProfile);
-       await  this.delay(1000);
-       //console.log(" hahya "+this.conversation);
+     goToConversation(){
+             if  (this.conversation.id != "") {
+                  this.router.navigate(['conversation', this.conversation.id]);
+              }
+              else {
+                 this.conversation.interlocuteur1 = this.afAuth.auth.currentUser.uid;
+                 this.conversation.interlocuteur2 = this.idProfile;
+                 this.conversationService.createConversation(this.conversation, (id: string) => {
+                     let message: Messages = new Messages();
 
-       if(this.conversation.id==""){
-    //console.log("mal9inach");
-this.conversation.interlocuteur1=this.afAuth.auth.currentUser.uid;
-this.conversation.interlocuteur2=this.idProfile;
-    this.idConversation=this.conversationService.createConversation(this.conversation);
-this.conversation.id=this.idConversation;
-   // this.router.navigate(['conversation',this.idConversation]);
+                     message.emeteur = this.afAuth.auth.currentUser.uid;
+                     message.conversation = id;
+                     message.contenu = "Cette personne veut se contacter";
+                     message.typeContenu = 'text';
 
-}
-else {
-    //console.log("l9inah");
-}
-       this.router.navigate(['conversation',this.conversation.id]);
+                     this.conversationService.createMessage(message, () => {
+                     this.router.navigate(['conversation', id]);
+                     })
+                 })
+             };
 
-   }
+         // console.log("mal9inach");
+         // this.conversation.interlocuteur1 = this.afAuth.auth.currentUser.uid;
+         // this.conversation.interlocuteur2 = this.idProfile;
+         // this.conversationService.createConversation(this.conversation, (id: string) => {
+         //     this.conversation.id = id
+//}
+// else {
+//     console.log("l9inah");
+// }
+//        });
+//          this.router.navigate(['conversation',this.conversation.id]);
+//
+              }
+  //         });
+  // }
 
     delay(ms: number) {
         return new Promise( resolve => setTimeout(resolve, ms) );
