@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Users} from '../../model/User';
-import {CallNumber} from '@ionic-native/call-number';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {ConversationService} from '../../service/chat/conversation.service';
 import {Conversations} from '../../model/Conversation';
@@ -10,6 +9,8 @@ import {AngularFirestore, } from '@angular/fire/firestore';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
+import {CallNumber} from '@ionic-native/call-number/ngx';
+
 import {ProfilePage} from '../tabs/profile/profile.page';
 import {Messages} from '../../model/Message';
 @Component({
@@ -22,7 +23,8 @@ export class HisProfilePage  {
     private conversations:Conversations[]=[];
     private idProfile:string="";
     private idConversation:string="";
-  constructor( private router:Router,  public  conversation:Conversations,
+  constructor( private callNumber: CallNumber,
+      private router:Router,  public  conversation:Conversations,
   private conversationService:ConversationService, private afAuth :AngularFireAuth, private profileUser :Users,private  route :ActivatedRoute) {
   }
 
@@ -83,6 +85,10 @@ export class HisProfilePage  {
         return new Promise( resolve => setTimeout(resolve, ms) );
     }
 
-
+call(){
+   this.callNumber.callNumber(this.profileUser.telephone, true)
+       .then(res => console.log('Launched dialer!', res))
+       .catch(err => console.log('Error launching dialer', err));
+}
 
 }
