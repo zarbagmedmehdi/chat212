@@ -11,6 +11,10 @@ import {LogSignService} from '../../service/user/logSign/logSign.service';
 
 const { Network } = Plugins;
 
+
+import {Platform, ToastController} from '@ionic/angular';
+import {NotificationService} from '../../service/notification.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -25,17 +29,25 @@ export class HomePage implements OnInit {
     email: string="";
     password: string="";
     logForm: FormGroup;
-    networkStatus: NetworkStatus;
-    networkListener: PluginListenerHandle;
+  //  networkStatus: NetworkStatus;
+    //networkListener: PluginListenerHandle;
 
-    constructor(  private logSignService:LogSignService, public db: AngularFirestore,
-                 public cUser:Users,  public router:Router,      public afAuth :AngularFireAuth ,public formBuilder: FormBuilder) {
+    constructor( private platform: Platform
+                 , private fcm: NotificationService,
+        private toastCtrl: ToastController,
+        private logSignService:LogSignService,
+        public db: AngularFirestore,
+        public cUser:Users,
+        public router:Router,
+        public afAuth :AngularFireAuth ,
+        public formBuilder: FormBuilder)
+    {
         this.logForm=formBuilder.group(this.logSignService.patterns);
         this.email= "";
         this.password ="";
     }
-        onClickFuntion($event:MouseEvent)
-        {
+        onClickFuntion($event:MouseEvent){
+
             //console.log("onClickFunction");
          this.isHidden == true ? this.isHidden = false : this.isHidden = true;
             this.isHidden == true ? this.iconMargin1 = "90px" : this.iconMargin1 = "0px";
@@ -46,12 +58,10 @@ export class HomePage implements OnInit {
     async ngOnInit() {
         this.email= "";
         this.password ="";
-        this.networkListener = Network.addListener('networkStatusChange', (status) => {
-            this.logSignService.testconnection(status,this.internetConnection,this.isHidden);
-        });
-        this.networkStatus = await Network.getStatus();
+        console.log("cc");
 
-    }
+}
+
          async log()
         {const {email, password} = this
                 try {const res = await this.afAuth.auth.signInWithEmailAndPassword(email, password);

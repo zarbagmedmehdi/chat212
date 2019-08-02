@@ -9,7 +9,8 @@ import {Router} from '@angular/router';
 })
 export class TabPage implements OnInit {
 
-  constructor(private rt: Router) { }
+  constructor(
+      private rt: Router) { }
 
   ngOnInit() {
     //console.log("tabPage");

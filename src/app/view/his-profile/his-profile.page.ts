@@ -4,26 +4,34 @@ import {Users} from '../../model/User';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {ConversationService} from '../../service/chat/conversation.service';
 import {Conversations} from '../../model/Conversation';
-import {Injectable} from '@angular/core';
-import {AngularFirestore, } from '@angular/fire/firestore';
+
+import { CallNumber } from '@ionic-native/call-number/ngx';
+
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
-import {CallNumber} from '@ionic-native/call-number/ngx';
 
-import {ProfilePage} from '../tabs/profile/profile.page';
 import {Messages} from '../../model/Message';
+import {AlertController, Platform} from '@ionic/angular';
+import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
+
 @Component({
   selector: 'app-his-profile',
   templateUrl: './his-profile.page.html',
   styleUrls: ['./his-profile.page.scss'],
 })
 export class HisProfilePage  {
-  private getRoute: any;
+
+    private getRoute: any;
     private conversations:Conversations[]=[];
     private idProfile:string="";
     private idConversation:string="";
-  constructor( private callNumber: CallNumber,
+  constructor(
+
+      private iab: InAppBrowser,
+public platform: Platform,
+      public alert :AlertController,
+    private callNumber: CallNumber,
       private router:Router,  public  conversation:Conversations,
   private conversationService:ConversationService, private afAuth :AngularFireAuth, private profileUser :Users,private  route :ActivatedRoute) {
   }
@@ -65,30 +73,32 @@ export class HisProfilePage  {
                  })
              };
 
-         // console.log("mal9inach");
-         // this.conversation.interlocuteur1 = this.afAuth.auth.currentUser.uid;
-         // this.conversation.interlocuteur2 = this.idProfile;
-         // this.conversationService.createConversation(this.conversation, (id: string) => {
-         //     this.conversation.id = id
-//}
-// else {
-//     console.log("l9inah");
-// }
-//        });
-//          this.router.navigate(['conversation',this.conversation.id]);
-//
+
               }
-  //         });
-  // }
+
 
     delay(ms: number) {
         return new Promise( resolve => setTimeout(resolve, ms) );
     }
 
 call(){
-   this.callNumber.callNumber(this.profileUser.telephone, true)
-       .then(res => console.log('Launched dialer!', res))
-       .catch(err => console.log('Error launching dialer', err));
+  this.callNumber.callNumber(this.profileUser.telephone, true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => alert(err));
 }
 
+   async seeDescription() {
+       let alert = await this.alert.create({
+           header: '            Sa description',
+           subHeader: this.profileUser.description,
+           buttons: ['Dismiss']
+       });
+        await alert.present();
+
+    }
+
+    showCv() {
+
+
+        }
 }

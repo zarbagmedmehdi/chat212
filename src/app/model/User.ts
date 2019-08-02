@@ -18,7 +18,7 @@ export class Users {
     public telephone: string ;
     public pays: string ;
     public userPicture: string;
-
+    public description :string;
     constructor( public logSingService?:LogSignService,
     public toastController?:ToastController,
     public alert?: AlertController,
@@ -33,6 +33,7 @@ export class Users {
         this.pays = "";
         this.telephone ="";
         this.userPicture = "";
+        this.description="";
     }
 
 
@@ -50,6 +51,7 @@ export class Users {
             job: user.job,
             pays: user.pays,
             telephone: user.telephone,
+            description :"",
             userPicture: "https://firebasestorage.googleapis.com/v0/b/chat212-35009.appspot.com/o/userPhotos%2F" + id + "%2FprofilePicture.png?alt=media",
         })
         setTimeout(() => {
@@ -89,6 +91,7 @@ export class Users {
         this.pays = data.pays;
         this.telephone = data.telephone;
         this.userPicture = data.userPicture;
+        this.description=data.description
     }
     cloneUser2(data: any) {
         this.nom = data.get("nom");
@@ -101,6 +104,8 @@ export class Users {
         this.pays = data.get("pays");
         this.telephone =data.get("telephone");
         this.userPicture = data.get("userPicture");
+        this.description=data.get("description");
+
     }
 
     viderUser() {
@@ -114,6 +119,7 @@ export class Users {
         this.pays = "";
         this.telephone ="";
         this.userPicture ="";
+        this.description="";
     }
 
 
@@ -157,6 +163,23 @@ export class Users {
                             setTimeout(() => {}, 300);
                             this.logSingService.presentToast('tes modifications sont enregistrées');}
                         else {this.showAlert("","format telephone incorrect");}} catch (err) {this.showAlert("", err.message);}},}]})
+        await alert.present();
+
+    }
+    public async setDescription() {
+
+        const alert = await this.alert.create({
+            header: 'votre nouvelle description',
+            inputs: [{name: "description", type: 'text', placeholder: ''}, ],
+            buttons: [{text: 'annuler', role: 'cancel', cssClass: 'secondary', handler: () => {}},
+                {text: 'modifier', handler: datas => {
+                        try {JSON.stringify(datas);
+                                this.db.doc('users/' + this.id).update({
+                                    description: datas.description,}),
+                                    this.description=datas.description;
+                                setTimeout(() => {}, 300);
+                                this.logSingService.presentToast('tes modifications sont enregistrées');
+                           } catch (err) {this.showAlert("", err.message);}},}]})
         await alert.present();
 
     }

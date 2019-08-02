@@ -23,19 +23,28 @@ import {CallNumber} from '@ionic-native/call-number/ngx';
 import {Conversations} from './model/Conversation';
 import {ConversationService} from './service/chat/conversation.service';
 import {Messages} from './model/Message';
+import {NotificationService} from './service/notification.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [         HttpClientModule,
+  imports: [
+      HttpClientModule,
     AngularFireAuthModule, AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule ,BrowserModule, IonicModule.forRoot(), AppRoutingModule,
   AngularFireModule.initializeApp(environment.firebase),AngularFirestoreModule],
-  providers: [Network,
+  providers: [
+
+      Network,
+NotificationService,
+      InAppBrowser,
     CallNumber,
       Messages,
+      Geolocation,
     Users,
       Conversations,
       ConversationService,

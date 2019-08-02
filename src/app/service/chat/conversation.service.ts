@@ -33,10 +33,9 @@ public conversations:Conversations[]=[];
         return user;
     }
 
-    public createConversationItems(conversations) {
+    public createConversationItems(conversations,callback) {
         let cis: ConversationItems[] = [];
         for (let i = 0; i < conversations.length; i++) {
-
             let ci: ConversationItems = new ConversationItems();
             if (conversations[i].interlocuteur1 == this.afAuth.auth.currentUser.uid) {
                 ci.interlocuteur1 = this.getUserById(conversations[i].interlocuteur1);
@@ -47,10 +46,13 @@ public conversations:Conversations[]=[];
 
             }
             ci.lastMessage = this.getLastMessage(conversations[i].id);
+
             ci.conversation = conversations[i];
             cis.push(ci);
+
         }
-        return cis;
+
+        callback (cis);
     }
 
     public createConversation(c: Conversations,callback) {
@@ -140,7 +142,7 @@ if(item.payload.doc.exists)
 
     }
 
-    getConversations(id) {
+    getConversations(id,callback) {
         let conversations: Conversations[] = [];
         for (let i = 1; i < 3; i++) {
             var cc = this.db.collection('/conversations', ref =>
@@ -151,15 +153,21 @@ if(item.payload.doc.exists)
                     //console.log('got in here');
                     let conversation: Conversations = new Conversations();
                     this.cloneConversation2(item.payload.doc, conversation);
-                    conversations.push(conversation);
+                    let find = conversations.find((seach) => {
+                        return   seach.id == conversation.id;
+
+                    });
+                    if (!find) {
+                        conversations.push(conversation);
+
+                    }
                 });
             });
 
         }
-        setTimeout(() => {
-        }, 2500);
+
         //console.log('get Conversations' + conversations);
-        return conversations;
+        callback (conversations);
     }
 
 
@@ -218,31 +226,14 @@ if(item.payload.doc.exists)
     private getTime(date?: Date) {
         return date != null ? date.getTime() : 0;
     }
-
+    private getDate(date?: Date) {
+        return date != null ? date.getDate() : 0;
+    }
 
     public sortByDueDate(): void {
 
     }
 
-
-
-    // public eliminate(duplicated: Messages[]) {
-    //     let originals: Messages[] = [];
-    //     //console.log(duplicated.length + 'length');
-    //     for (let i = 0; i < duplicated.length; i++) {
-    //         //console.log(i + 'ha');
-    //         let message = duplicated[i];
-    //         let found = false;
-    //         for (let j = 0; i < duplicated.length; j++) {
-    //             duplicated[j].id == message.id ? found = true : found = false;
-    //         }
-    //         if (found == false) {
-    //             originals.push(message);
-    //         }
-    //
-    //     }
-    //     return originals;
-    // }
 
     public createMessage(message: Messages, callback) {
         let id = '';

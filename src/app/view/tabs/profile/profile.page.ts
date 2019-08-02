@@ -14,7 +14,8 @@ import {AlertController, IonImg} from '@ionic/angular';
 export class ProfilePage  {
 bol :boolean;
 userPicture:string="";
-  constructor( public router:Router,
+  constructor(
+      public router:Router,
       private  user :Users, public afAuth :AngularFireAuth ,public alert :AlertController ) {}
   telephoneEvent($event){
       this.user.setTelephone();
@@ -47,13 +48,14 @@ userPicture:string="";
           this.user.getUserById(this.afAuth.auth.currentUser.uid);
           //console.log(cc);
           this.user.userPicture  ="";
+            this.ionViewWillEnter();
+
         }
     } catch (error) {
         console.error(error);
       }
       finally {
         //console.log("done");
-
       }
     }
 
@@ -86,4 +88,8 @@ userPicture:string="";
     this.bol=true;
   }
 
+    descriptionEvent($event: MouseEvent) {
+        this.user.setDescription();
+
+    }
 }

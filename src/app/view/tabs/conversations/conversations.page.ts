@@ -23,18 +23,33 @@ export class ConversationsPage  {
   }
 
    async ionViewWillEnter() {
-     this.conversations = this.convService.getConversations(this.afAuth.auth.currentUser.uid);
-
-     await this.delay(700);
+     this.convService.getConversations(this.afAuth.auth.currentUser.uid,async(conversations)=>{
+await this.delay(500);
      //console.log(this.conversations.length);
-     this.conversationsItems=this.convService.createConversationItems(this.conversations);
+     this.convService.createConversationItems(conversations,async(list)=>{
+       await this.delay(500);
 
-   }
-   bb(){
-     //console.log(this.conversations.length);
-     this.conversationsItems=this.convService.createConversationItems(this.conversations);
+       list.sort((a: ConversationItems, b: ConversationItems) => {
+       if (b.lastMessage.dateEnvoi.getMonth() == a.lastMessage.dateEnvoi.getMonth() && b.lastMessage.dateEnvoi.getDay() == a.lastMessage.dateEnvoi.getDay()) {
+         console.log(1);
+         return b.lastMessage.dateEnvoi.getHours() - a.lastMessage.dateEnvoi.getHours();
+       } else {
+         console.log(b.lastMessage.dateEnvoi
+             + "" + a.lastMessage.dateEnvoi);
+         return b.lastMessage.dateEnvoi.getDate() - a.lastMessage.dateEnvoi.getDate();
 
+       }
+     });
+     this.conversationsItems=list;
+     });
+     });
    }
+
+   // bb(){
+   //   //console.log(this.conversations.length);
+   //   this.conversationsItems=this.convService.createConversationItems(this.conversations);
+   //
+   // }
      delay(ms: number) {
        return new Promise( resolve => setTimeout(resolve, ms) );
      }

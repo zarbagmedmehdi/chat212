@@ -20,13 +20,17 @@
   <ion-button  (click)="goToConversation()"    color="primary" >
           <ion-icon name="chatbubbles"></ion-icon>
         </ion-button>
-      <ion-button  color="light">
-        <ion-icon name="mail"></ion-icon>
+      <ion-button  (click)="seeDescription()"  color="primary">
+        <ion-icon name="book"></ion-icon>
       </ion-button>
-      <ion-button color="light" >
+      <ion-button  (click)="call()" color="primary" >
         <ion-icon name="call"></ion-icon>
       </ion-button>
-</div  >
+    <ion-button  (click)="showCv()" color="primary" >
+        <ion-icon name="journal"></ion-icon>
+    </ion-button>
+
+</div>
 
       <h5>Ses informations :</h5>
       <ion-item class="profile-item2">

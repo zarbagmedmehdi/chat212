@@ -3,6 +3,8 @@ import {AlertController,  IonSelect} from '@ionic/angular';
 import {SearchService} from '../../../service/user/search/search.service';
 import {Users} from '../../../model/User';
 import {Router} from '@angular/router';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {LogSignService} from '../../../service/user/logSign/logSign.service';
 
 @Component({
     selector: 'app-search',
@@ -11,6 +13,7 @@ import {Router} from '@angular/router';
 })
 export class SearchPage implements OnInit {
     @ViewChild('select') select: IonSelect;
+
     public users:  Users[]=[];
 
     label: string = '      ';
@@ -19,7 +22,8 @@ export class SearchPage implements OnInit {
     prenom: string = '';
     bb: number = 0;
 
-    constructor(private router: Router, private searchService: SearchService, private alert: AlertController) {
+    constructor( public logSingService:LogSignService,
+        public afAuth: AngularFireAuth,private router: Router, private searchService: SearchService, private alert: AlertController) {
 
     }
 
@@ -28,6 +32,10 @@ export class SearchPage implements OnInit {
     }
 
     onSelect() {
+        if (this.select.value == 0) {
+            //console.log(1);
+            this.fullNameSearch();
+        }
         if (this.select.value == 1) {
             //console.log(1);
             this.textSearch('nom', 1);
@@ -39,6 +47,10 @@ export class SearchPage implements OnInit {
         if (this.select.value == 3) {
             //console.log(3);
             this.paysSearch();
+        }
+        if (this.select.value == 4) {
+            //console.log(3);
+           this.jobSearch();
         }
         this.select.value = null;
     }
@@ -92,8 +104,61 @@ export class SearchPage implements OnInit {
         await alert.present();
 
     }
+    async fullNameSearch() {
+        const alert = await this.alert.create({
+            header: "full Name",
+            inputs: [{placeholder: "nom" ,name: 'nom', type: 'text',},
+                {placeholder: "prenom" ,name: 'prenom', type: 'text',}
+            ],
+            buttons: [
+                {
+                    text: 'Cancel', role: 'cancel', cssClass: 'secondary', handler: () => {
+                        return null;
+                    }
+                },
+                {
+                    text: 'Ok', handler: datas => {
+                        this.label = 'Resultats  pour  : "' + datas.nom+ " "+ datas.prenom;
+                        //this.users = new Array<Users>();
+                        this.users = this.searchService.getUsersByFullName(datas.nom, datas.prenom);
+                    }
+                }]
+        });
+        await alert.present();
 
-    goToProfile(user: Users) {
+    }
+
+
+    public async jobSearch() {
+        let options: Array<any> = [];
+        for (let i = 0; i < this.logSingService.jobs.length; i++) {
+            options.push({name: 'job', value: this.logSingService.jobs[i], label: this.logSingService.jobs[i], type: 'radio'});
+        }
+        const alert = await this.alert.create({
+
+            header: 'Job',
+            buttons: [
+                {
+                    text: 'Cancel', role: 'cancel', cssClass: 'secondary',
+                    handler: () => {
+                    }
+                }, {
+                    text: 'Ok', handler: datas => {
+                        try {
+
+                            this.label = 'Resultats  pour Job: "' +   datas.toString() + '"';
+
+                            this.users = this.searchService.getUsers('job',   datas.toString());
+                        } catch (err) {
+                        }
+                    },
+                }],
+            inputs: options,
+        })
+        await alert.present();
+
+    }
+        goToProfile(user: Users) {
         this.router.navigate(['his-profile', user.id]);
     }
 

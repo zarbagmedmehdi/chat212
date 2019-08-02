@@ -17,9 +17,12 @@
       <ion-item color="light" class="rounded">
         <ion-label>precisez vos choix de recherche</ion-label>
         <ion-select #select (ionChange)="onSelect()" name="choix"  required  multiple="false" cancelText="annuler" okText="ok">
+          <ion-select-option value=0>Nom et prenom</ion-select-option>
           <ion-select-option value=1 >Nom</ion-select-option>
           <ion-select-option value=2>Prenom</ion-select-option>
           <ion-select-option value=3>Pays</ion-select-option>
+          <ion-select-option value=4>Job</ion-select-option>
+
         </ion-select>
       </ion-item>
       <ion-item  color="light" class="rounded">

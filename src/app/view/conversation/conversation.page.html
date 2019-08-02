@@ -16,7 +16,7 @@
       <div class="sender" >
         <div *ngFor="let msg of messages">
 
-          <div class="sender" *ngIf="msg.emeteur !=emeteur">
+          <div class="sender" *ngIf="msg.emeteur !=emeteur && msg.typeContenu=='text'">
         <ion-grid>
           <ion-row>
 
@@ -28,7 +28,7 @@
         </ion-grid>
       </div>
 
-      <div class="me" color="dark" *ngIf="msg.emeteur ==emeteur"  >
+      <div class="me" color="dark" *ngIf="msg.emeteur ==emeteur && msg.typeContenu=='text'"  >
         <ion-grid>
           <ion-row>
 
@@ -39,6 +39,56 @@
           </ion-row>
         </ion-grid>
       </div>
+
+          <div class="sender" (click)="presentAlert(msg.contenu)" *ngIf="msg.emeteur !=emeteur && msg.typeContenu=='photo'">
+            <ion-grid>
+              <ion-row>
+
+                <ion-col col-10>
+                  <p><ion-img src="{{msg.contenu}}"></ion-img><span>{{ msg.dateEnvoi.toString().slice(0,21) }}</span></p>
+                </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <div class="me" color="dark"  (click)="presentAlert(msg.contenu)" *ngIf="msg.emeteur ==emeteur && msg.typeContenu=='photo'"  >
+            <ion-grid>
+              <ion-row>
+
+                <ion-col col-10>
+                  <p><ion-img src="{{msg.contenu}}"></ion-img>  <span>{{ msg.dateEnvoi.toString().slice(0,21) }}</span></p>
+                </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          </div>
+
+            <div  (click)="goToLocalisation(msg.contenu)" class="sender" *ngIf="msg.emeteur !=emeteur && msg.typeContenu=='geo'">
+                <ion-grid>
+                    <ion-row>
+
+                        <ion-col col-10>
+                            <p><ion-img src="/assets/icon/map.jpg"></ion-img>  <span>{{ msg.dateEnvoi.toString().slice(0,21) }}</span></p>
+                        </ion-col>
+
+                    </ion-row>
+                </ion-grid>
+            </div>
+
+            <div  (click)="goToLocalisation(msg.contenu)" class="me" color="dark" *ngIf="msg.emeteur ==emeteur && msg.typeContenu=='geo'"  >
+                <ion-grid>
+                    <ion-row>
+
+                        <ion-col col-10>
+                            <p><ion-img src="/assets/icon/map.jpg"></ion-img>  <span>{{ msg.dateEnvoi.toString().slice(0,21) }}</span></p>
+                        </ion-col>
+
+                    </ion-row>
+                </ion-grid>
+            </div>
+
+
         </div>
       </div>
     </div>
@@ -47,8 +97,14 @@
 
 <ion-footer no-border>
     <ion-textarea (keyup.enter)="doSend()" [(ngModel)]="input" placeholder="Enter your message" name="message"></ion-textarea>
-      <ion-button (click)="doSend()"  >
-        <ion-icon name="send" color="light"></ion-icon>
+  <ion-button    (click)="doSend()"  >
+    <ion-icon  name="send" color="light"></ion-icon>
+  </ion-button>
+      <ion-button    (click)="sendPhoto()"  >
+        <ion-icon  name="camera" color="light"></ion-icon>
       </ion-button>
+  <ion-button  (click)="sendLocalisation()"  >
+    <ion-icon  name="locate" color="light"></ion-icon>
+  </ion-button>
 
 </ion-footer>

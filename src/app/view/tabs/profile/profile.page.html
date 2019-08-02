@@ -34,6 +34,12 @@
           <ion-button (click)="paysEvent($event)"  color="light" >
             <ion-icon name="build"></ion-icon>
           </ion-button>          </ion-item>
+        <ion-item class="profile-item22">
+          <ion-label fixed>description </ion-label> :
+          <ion-input [disabled]="bol" name="description"      type="text"   [(ngModel)]="user.description"></ion-input>
+          <ion-button (click)="descriptionEvent($event)"  color="light" >
+            <ion-icon name="build"></ion-icon>
+          </ion-button>          </ion-item>
 
         <ion-item class="profile-item2">
           <ion-button   (click)="takePicture($event)"    color="primary" class="ion-text-center">changer de photo </ion-button>

@@ -16,7 +16,9 @@
           <ion-text >
             <h3>{{ obj.interlocuteur2.prenom }}   {{ obj.interlocuteur2.nom }} </h3>
           </ion-text>
-          <p>{{ obj.lastMessage.emeteur }}{{ obj.lastMessage.contenu }}</p>
+          <p *ngIf="obj.lastMessage.typeContenu=='text'">{{ obj.lastMessage.emeteur }}{{ obj.lastMessage.contenu }}</p>
+          <p *ngIf="obj.lastMessage.typeContenu!='text'">{{ obj.lastMessage.emeteur }} contenu</p>
+
           <ion-text >
             <p>{{ obj.lastMessage.dateEnvoi.toString().slice(0,21) }}
               </p>
